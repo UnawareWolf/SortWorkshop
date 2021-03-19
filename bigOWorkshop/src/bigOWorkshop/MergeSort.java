@@ -66,43 +66,34 @@ public class MergeSort {
 		return sortedList;
 	}
 	
-//	private int[] mergeSort(int[] inputList, int startIndex, int endIndex) {
-//		if (inputList.length == 1) {
-//			return inputList;
-//		}
-//		int halfIndex = inputList.length / 2;
-//		int[] left = new int[halfIndex];
-//		int[] right = new int[inputList.length - halfIndex];
-//		for (int index = 0; index < inputList.length; index++) {
-//			if (index < halfIndex) {
-//				left[index] = inputList[index];
-//			}
-//			else {
-//				right[index - halfIndex] = inputList[index];
-//			}
-//		}
-//		left = mergeSort(left, startIndex, );
-//		right = mergeSort(right);
-//		
-//		int leftIndex = 0;
-//		int rightIndex = 0;
-//		int newIndex = 0;
-//		
-//		int[] sortedList = new int[inputList.length];
-//		while (leftIndex < left.length || rightIndex < right.length) {
-//			if (rightIndex >= right.length ||
-//					(leftIndex < left.length && left[leftIndex] < right[rightIndex])) {
-//				sortedList[newIndex] = left[leftIndex];
-//				leftIndex++;
-//			}
-//			else {
-//				sortedList[newIndex] = right[rightIndex];
-//				rightIndex++;
-//			}
-//			comparisons++;
-//			newIndex++;
-//		}
-//		
-//		return sortedList;
-//	}
+	private int[] mergeSort(int[] inputList, int startIndex, int endIndex) {
+		if (startIndex == endIndex) {
+			return inputList;
+		}
+		int halfIndex = (endIndex - startIndex) / 2;
+		mergeSort(inputList, startIndex, halfIndex);
+		mergeSort(inputList, halfIndex, endIndex);
+		
+		int leftIndex = 0;
+		int rightIndex = 0;
+		int newIndex = 0;
+		
+		int[] sortedList = new int[inputList.length];
+		while (leftIndex < halfIndex - startIndex || rightIndex < endIndex - rightIndex) {
+			sortedList[newIndex] = inputList[rightIndex];
+			if (rightIndex >= endIndex - rightIndex ||
+					(leftIndex < halfIndex - startIndex && inputList[leftIndex] < inputList[rightIndex])) {
+//				sortedList[newIndex] = inputList[leftIndex];
+				leftIndex++;
+			}
+			else {
+//				sortedList[newIndex] = inputList[rightIndex];
+				rightIndex++;
+			}
+			comparisons++;
+			newIndex++;
+		}
+		
+		return sortedList;
+	}
 }
