@@ -11,14 +11,8 @@ public class Main {
 		selectionSort(intArray.clone());
 		insertionSort(intArray.clone());
 		MergeSort mergeSort;
-		System.out.println("trues");
 		for (int i = 0; i < 5; i++) {
-			mergeSort = new MergeSort(intArray.clone(), true);
-			mergeSort.sort();
-		}
-		System.out.println("falses");
-		for (int i = 0; i < 5; i++) {
-			mergeSort = new MergeSort(intArray.clone(), false);
+			mergeSort = new MergeSort(intArray.clone());
 			mergeSort.sort();
 		}
 	}
