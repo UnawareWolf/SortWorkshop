@@ -12,12 +12,12 @@ public class Main {
 		insertionSort(intArray.clone());
 		MergeSort mergeSort;
 		System.out.println("trues");
-		for (int i = 0; i < 8; i++) {
+		for (int i = 0; i < 5; i++) {
 			mergeSort = new MergeSort(intArray.clone(), true);
 			mergeSort.sort();
 		}
 		System.out.println("falses");
-		for (int i = 0; i < 8; i++) {
+		for (int i = 0; i < 5; i++) {
 			mergeSort = new MergeSort(intArray.clone(), false);
 			mergeSort.sort();
 		}
@@ -80,7 +80,5 @@ public class Main {
 				"\ntime taken: " + timeTaken + "\noutputs: " + Arrays.toString(outputList) + "\n");
 		return outputList;
 	}
-	
-
 	
 }

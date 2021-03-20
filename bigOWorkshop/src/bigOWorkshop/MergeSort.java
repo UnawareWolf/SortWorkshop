@@ -6,12 +6,14 @@ public class MergeSort {
 	
 	private int comparisons;
 	private final int[] input;
+	private int[] interim;
 	private int[] output;
 	private long timeTaken;
 	private final boolean v2;
 
 	public MergeSort(int[] input, boolean v2) {
 		this.input = input;
+		this.interim = new int[input.length];
 		this.v2 = v2;
 	}
 	
@@ -22,6 +24,10 @@ public class MergeSort {
 			output = input.clone();
 			mergeSort(output, 0, input.length - 1);
 		}
+//		else {
+//			output = input.clone();
+//			mergeSort(output, 0, input.length - 1);
+//		}
 		else output = mergeSort(input);
 		
 		timeTaken = System.nanoTime() - startTime;
@@ -73,6 +79,40 @@ public class MergeSort {
 		return sortedList;
 	}
 	
+//	private void mergeSort(int[] inputList, int startIndex, int endIndex) {
+//		if (inputList[startIndex] == inputList[endIndex]) {
+//			return;
+//		}
+//		int halfIndex = startIndex + (endIndex - startIndex) / 2;
+//		mergeSort(inputList, startIndex, halfIndex);
+//		mergeSort(inputList, halfIndex + 1, endIndex);
+//
+//		int leftIndex = startIndex;
+//		int rightIndex = halfIndex + 1;
+//		int newIndex = 0;
+//		
+//		int[] interimIntArray = new int[1 + endIndex - startIndex];
+//		while (leftIndex <= halfIndex || rightIndex <= endIndex) {
+////			int temp = inputList[newIndex + startIndex];
+//			if (rightIndex > endIndex ||
+//					(leftIndex <= halfIndex && inputList[leftIndex] < inputList[rightIndex])) {
+////				inputList[newIndex + startIndex] = inputList[leftIndex];
+////				inputList[leftIndex] = temp;
+//				interimIntArray[newIndex] = inputList[leftIndex];
+//				leftIndex++;
+//			}
+//			else {
+//				interimIntArray[newIndex] = inputList[rightIndex];
+////				inputList[newIndex + startIndex] = inputList[rightIndex];
+////				inputList[rightIndex] = temp;
+//				rightIndex++;
+//			}
+//			comparisons++;
+//			newIndex++;
+//		}
+//		System.arraycopy(interimIntArray, 0, inputList, startIndex, interimIntArray.length);
+//	}
+
 	private void mergeSort(int[] inputList, int startIndex, int endIndex) {
 		if (inputList[startIndex] == inputList[endIndex]) {
 			return;
@@ -84,26 +124,20 @@ public class MergeSort {
 		int leftIndex = startIndex;
 		int rightIndex = halfIndex + 1;
 		int newIndex = 0;
-		
-		int[] interimIntArray = new int[1 + endIndex - startIndex];
+
 		while (leftIndex <= halfIndex || rightIndex <= endIndex) {
-//			int temp = inputList[newIndex + startIndex];
 			if (rightIndex > endIndex ||
 					(leftIndex <= halfIndex && inputList[leftIndex] < inputList[rightIndex])) {
-//				inputList[newIndex + startIndex] = inputList[leftIndex];
-//				inputList[leftIndex] = temp;
-				interimIntArray[newIndex] = inputList[leftIndex];
+				interim[newIndex] = inputList[leftIndex];
 				leftIndex++;
 			}
 			else {
-				interimIntArray[newIndex] = inputList[rightIndex];
-//				inputList[newIndex + startIndex] = inputList[rightIndex];
-//				inputList[rightIndex] = temp;
+				interim[newIndex] = inputList[rightIndex];
 				rightIndex++;
 			}
 			comparisons++;
 			newIndex++;
 		}
-		System.arraycopy(interimIntArray, 0, inputList, startIndex, interimIntArray.length);
+		System.arraycopy(interim, 0, inputList, startIndex, 1 + endIndex - startIndex);
 	}
 }
