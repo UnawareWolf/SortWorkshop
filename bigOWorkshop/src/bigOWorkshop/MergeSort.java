@@ -5,18 +5,25 @@ import java.util.Arrays;
 public class MergeSort {
 	
 	private int comparisons;
-	private int[] input;
+	private final int[] input;
 	private int[] output;
 	private long timeTaken;
+	private final boolean v2;
 
-	public MergeSort(int[] input) {
+	public MergeSort(int[] input, boolean v2) {
 		this.input = input;
+		this.v2 = v2;
 	}
 	
 	public void sort() {
 		comparisons = 0;
 		long startTime = System.nanoTime();
-		output = mergeSort(input);
+		if (v2) {
+			output = input.clone();
+			mergeSort(output, 0, input.length - 1);
+		}
+		else output = mergeSort(input);
+		
 		timeTaken = System.nanoTime() - startTime;
 		System.out.println("Merge sort... \ncomparisons: " + comparisons + "\ntime taken: " + timeTaken +
 				"\noutputs: " + Arrays.toString(output) + "\n");
@@ -66,34 +73,37 @@ public class MergeSort {
 		return sortedList;
 	}
 	
-	private int[] mergeSort(int[] inputList, int startIndex, int endIndex) {
-		if (startIndex == endIndex) {
-			return inputList;
+	private void mergeSort(int[] inputList, int startIndex, int endIndex) {
+		if (inputList[startIndex] == inputList[endIndex]) {
+			return;
 		}
-		int halfIndex = (endIndex - startIndex) / 2;
+		int halfIndex = startIndex + (endIndex - startIndex) / 2;
 		mergeSort(inputList, startIndex, halfIndex);
-		mergeSort(inputList, halfIndex, endIndex);
-		
-		int leftIndex = 0;
-		int rightIndex = 0;
+		mergeSort(inputList, halfIndex + 1, endIndex);
+
+		int leftIndex = startIndex;
+		int rightIndex = halfIndex + 1;
 		int newIndex = 0;
 		
-		int[] sortedList = new int[inputList.length];
-		while (leftIndex < halfIndex - startIndex || rightIndex < endIndex - rightIndex) {
-			sortedList[newIndex] = inputList[rightIndex];
-			if (rightIndex >= endIndex - rightIndex ||
-					(leftIndex < halfIndex - startIndex && inputList[leftIndex] < inputList[rightIndex])) {
-//				sortedList[newIndex] = inputList[leftIndex];
+		int[] interimIntArray = new int[1 + endIndex - startIndex];
+		while (leftIndex <= halfIndex || rightIndex <= endIndex) {
+//			int temp = inputList[newIndex + startIndex];
+			if (rightIndex > endIndex ||
+					(leftIndex <= halfIndex && inputList[leftIndex] < inputList[rightIndex])) {
+//				inputList[newIndex + startIndex] = inputList[leftIndex];
+//				inputList[leftIndex] = temp;
+				interimIntArray[newIndex] = inputList[leftIndex];
 				leftIndex++;
 			}
 			else {
-//				sortedList[newIndex] = inputList[rightIndex];
+				interimIntArray[newIndex] = inputList[rightIndex];
+//				inputList[newIndex + startIndex] = inputList[rightIndex];
+//				inputList[rightIndex] = temp;
 				rightIndex++;
 			}
 			comparisons++;
 			newIndex++;
 		}
-		
-		return sortedList;
+		System.arraycopy(interimIntArray, 0, inputList, startIndex, interimIntArray.length);
 	}
 }

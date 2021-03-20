@@ -10,8 +10,17 @@ public class Main {
 		int[] intArray = getRandomIntArray(10000, 300);
 		selectionSort(intArray.clone());
 		insertionSort(intArray.clone());
-		MergeSort mergeSort = new MergeSort(intArray.clone());
-		mergeSort.sort();
+		MergeSort mergeSort;
+		System.out.println("trues");
+		for (int i = 0; i < 8; i++) {
+			mergeSort = new MergeSort(intArray.clone(), true);
+			mergeSort.sort();
+		}
+		System.out.println("falses");
+		for (int i = 0; i < 8; i++) {
+			mergeSort = new MergeSort(intArray.clone(), false);
+			mergeSort.sort();
+		}
 	}
 	
 	public static int[] getRandomIntArray(int maxSize, int maxValue) {
