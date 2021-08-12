@@ -56,6 +56,14 @@ public class Sudoku {
 
 		// Initialising
 		System.out.println("Solving board:");
+		
+		// This solver is not perfect but it seems to work.
+		// It will do all moves that it knows to be correct
+		// for the next board on the stack. If there are no
+		// more 'perfect' moves for the board, it will try to
+		// do all perfect moves for the next board in the stack.
+		// If the stack empties, it will add all possible moves
+		// to the stack (guesses) so that it can progress.
 
 		// Set up the stack
 		Deque<int[][]> stack = new ArrayDeque<>();
