@@ -10,8 +10,11 @@ public class Main {
 		int[] intArray = getRandomIntArray(10000, 300);
 		selectionSort(intArray.clone());
 		insertionSort(intArray.clone());
-		MergeSort mergeSort = new MergeSort(intArray.clone());
-		mergeSort.sort();
+		MergeSort mergeSort;
+		for (int i = 0; i < 5; i++) {
+			mergeSort = new MergeSort(intArray.clone());
+			mergeSort.sort();
+		}
 	}
 	
 	public static int[] getRandomIntArray(int maxSize, int maxValue) {
@@ -71,7 +74,5 @@ public class Main {
 				"\ntime taken: " + timeTaken + "\noutputs: " + Arrays.toString(outputList) + "\n");
 		return outputList;
 	}
-	
-
 	
 }
