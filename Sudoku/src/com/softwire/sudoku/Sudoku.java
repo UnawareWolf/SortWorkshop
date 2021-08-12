@@ -61,10 +61,10 @@ public class Sudoku {
         Deque<int[][]> stack = new ArrayDeque<>();
         stack.push(initialBoard);
         int count = 0;
-        int[][] tempBoard;
+        int[][] tempBoard, board;
         while (!stack.isEmpty()) {
 			count++;
-			int[][] board = stack.pop();
+			board = stack.pop();
             System.out.println("next board");
             printBoard(board);
             
@@ -74,37 +74,22 @@ public class Sudoku {
                 System.out.println("Solved!");
                 break;
             }
-//            boolean breakSlots = false;
-//            for (Slot slot : slots) {
-//            	
-//            	for (int guess = 1; guess <= 9; guess++) {
-//            		if (onlyValidGuessInSlot(guess, slot, board)) {
-//            			stack.push(updateBoard(guess, slot, board));
-//                    	breakSlots = true;
-//                    	break;
-//            		}
-//                }
-//
-//                if (breakSlots) {
-//                	break;
-//                }
-//            }
             
+            // Do the first move that we know is correct
+            // (assuming that the state of 'board' is correct).
             tempBoard = doPerfectMove(slots, board);
             if (tempBoard != null) {
             	stack.push(tempBoard);
             }
             
+            // If we couldn't find a move that we know to be correct,
+            // add all possible moves to the stack.
             if (stack.isEmpty()) {
-//            if (!breakSlots) {
             	for (Slot slot : slots) {
             		for (int guess = 1; guess <= 9; guess++) {
                 		if (isValidInSlot(guess, slot, board)) {
                 			stack.push(updateBoard(guess, slot, board));
                 		}
-//                		if (guess == 9 && stack.isEmpty()) {
-//                			System.out.println();
-//                		}
                     }
             	}
             }
